@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 
 @NoArgsConstructor
@@ -15,6 +16,9 @@ class Body extends BaseEntity {
 
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "body", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<CategoryBodyLink> categoryBodyLinks;
 
     @Override
     public boolean equals(Object o) {

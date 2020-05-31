@@ -29,11 +29,12 @@ CREATE TABLE "body" (
 );
 
 CREATE TABLE "category_body" (
+                                 id SERIAL GENERATED,
                                   category_id INT NOT NULL,
                                   body_id INT NOT NULL,
                                   FOREIGN KEY (category_id) REFERENCES category (id),
-                                  FOREIGN KEY (body_id) REFERENCES body (id)
-
+                                  FOREIGN KEY (body_id) REFERENCES body (id),
+                                 PRIMARY KEY (id)
 );
 
 CREATE TABLE "brand" (

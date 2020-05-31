@@ -2,8 +2,10 @@ package com.berezovska.autoria.controller;
 
 import com.berezovska.autoria.model.Body;
 import com.berezovska.autoria.model.Category;
+import com.berezovska.autoria.model.CategoryBodyLink;
 import com.berezovska.autoria.model.Colour;
 import com.berezovska.autoria.service.BodyService;
+import com.berezovska.autoria.service.CategoryBodyLinkService;
 import com.berezovska.autoria.service.CategoryService;
 import com.berezovska.autoria.service.ColourService;
 import com.berezovska.autoria.service.http.BodyHTTPRequest;
@@ -17,8 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.List;
 
-//import com.sap.lmc.beans.OkHttpClientFactory;
-
 @RestController
 @RequestMapping("/data")
 public class DataController {
@@ -28,6 +28,8 @@ public class DataController {
     private ColourService colourService;
     @Autowired
     private BodyService bodyService;
+    @Autowired
+    private CategoryBodyLinkService categoryBodyLinkService;
 
     @GetMapping(path = "/updateData")
     public String updateData() {
@@ -38,10 +40,17 @@ public class DataController {
             colourService.saveAll(colours);
             BodyHTTPRequest bodyHTTPRequest = new BodyHTTPRequest();
             List<Body> bodies;
+            CategoryBodyLink categoryBodyLink;
+            int k=1;
             for (int i=1; i<=categories.size(); i++)
             {
                 bodies = bodyHTTPRequest.getBodies(i);
                 bodyService.saveAll(bodies);
+                for (int j=0; j<bodies.size(); j++) {
+                    categoryBodyLink = new CategoryBodyLink(k, categories.get(i-1), bodies.get(j));
+                    categoryBodyLinkService.save(categoryBodyLink);
+                    k++;
+                }
             }
 
             return "data_updated";
@@ -49,32 +58,5 @@ public class DataController {
             e.printStackTrace();
             return "";
         }
-
     }
-
-/*
-    @Qualifier("OkHttpClientFactory")
-    @Autowired
-    private OkHttpClient client;
-
-    private String url = "https://developers.ria.com/auto/categories?api_key=ldmSfiDfxNaPwEUwFEzSuMos8Gk8QHZD8ffMVHCW";
-
-    @GetMapping(path="/data", produces="application/json")
-    public String getRecastResponse(Model model) {
-
-        Request request = new Request.Builder().url(url).build();
-        try {
-            Response response = client.newCall(request).execute();
-            JSONObject json = new JSONObject();
-            json.put("conversation",response.body().string());
-            System.out.println(json.toString());
-            model.addAttribute("json", json);
-            return "json";
-        } catch (Exception e) {
-            return e.getMessage().toString();
-        }
-    }
-*/
-
-
 }

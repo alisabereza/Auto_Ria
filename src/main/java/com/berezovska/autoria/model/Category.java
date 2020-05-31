@@ -19,14 +19,17 @@ class Category extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(cascade = {
+/*    @OneToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
     @JoinTable(name = "category_body",
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "body_id"))
-    private Set<Body> bodies;
+    private Set<Body> bodies;*/
+
+    @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<CategoryBodyLink> categoryBodyLinks;
 
     @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<CategoryBrandModelLink> categoryBrandModelLinks;

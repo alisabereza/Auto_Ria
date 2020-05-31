@@ -15,19 +15,15 @@ import java.util.List;
 import java.util.Properties;
 
 @Service
-public class UpdateCategories {
-    private static final Logger LOG = LogManager.getLogger(UpdateCategories.class);
+public class CategoryHTTPRequest {
+    private static final Logger LOG = LogManager.getLogger(CategoryHTTPRequest.class);
     private OkHttpSingleton instance;
     private OkHttpClient client;
 
-    public UpdateCategories() {
+    public CategoryHTTPRequest() {
         this.instance = OkHttpSingleton.getInstance();
         this.client = instance.getClient();
     }
-
-
-//String url = "https://developers.ria.com/auto/categories?api_key=ldmSfiDfxNaPwEUwFEzSuMos8Gk8QHZD8ffMVHCW";
-
 
     public List<Category> getCategories () throws IOException {
         Properties properties = new Url().getProperties();
@@ -43,7 +39,6 @@ public class UpdateCategories {
 
         List <Category> categories = mapCategories(response);
 
-        categories.forEach(System.out::println);
         LOG.debug((categories.size()==0)?"No Category found":"Category found");
         return categories;
     }

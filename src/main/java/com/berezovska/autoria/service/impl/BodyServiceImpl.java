@@ -4,8 +4,8 @@ import com.berezovska.autoria.controller.exception.UserAlreadyExistsException;
 import com.berezovska.autoria.controller.exception.UserNotExistsException;
 import com.berezovska.autoria.model.Body;
 import com.berezovska.autoria.repository.BodyRepository;
+import com.berezovska.autoria.repository.CategoryBodyLinkRepository;
 import com.berezovska.autoria.service.BodyService;
-import com.berezovska.autoria.service.http.OkHttpSingleton;
 import lombok.Data;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +21,7 @@ class BodyServiceImpl implements BodyService {
     @Autowired
     private BodyRepository bodyRepository;
     @Autowired
-    private OkHttpSingleton instance;
+    private CategoryBodyLinkRepository categoryBodyRepository;
 
     @Override
     public List<Body> getAll() {
@@ -57,6 +57,7 @@ class BodyServiceImpl implements BodyService {
     @Override
     public void saveAll(List<Body> bodies) {
         bodyRepository.saveAll(bodies);
+
     }
 
 }
