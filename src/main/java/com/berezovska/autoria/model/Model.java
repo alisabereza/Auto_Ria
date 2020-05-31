@@ -4,10 +4,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @EqualsAndHashCode(callSuper=true)
 @NoArgsConstructor
@@ -17,6 +16,9 @@ public @Data
 class Model extends BaseEntity {
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "model", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<CategoryBrandModelLink> categoryBrandModelLinks;
 
     @Override
     public boolean equals(Object o) {

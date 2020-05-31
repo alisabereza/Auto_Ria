@@ -42,15 +42,6 @@ CREATE TABLE "brand" (
                           PRIMARY KEY (id)
 );
 
-CREATE TABLE "category_brand" (
-                                  id SERIAL,
-                                  category_id INT NOT NULL,
-                                  brand_id INT NOT NULL,
-                                  PRIMARY KEY (id),
-                                  FOREIGN KEY (category_id) REFERENCES category (id),
-                                  FOREIGN KEY (brand_id) REFERENCES brand (id)
-
-);
 CREATE TABLE "model" (
                          id INT UNIQUE NOT NULL,
                          name  VARCHAR NOT NULL,
@@ -58,11 +49,14 @@ CREATE TABLE "model" (
 );
 
 CREATE TABLE "category_brand_model" (
-                                  category_brand_id INT NOT NULL,
+                                  id SERIAL,
+                                  category_id INT NOT NULL,
+                                  brand_id INT NOT NULL,
                                   model_id INT NOT NULL,
-                                  FOREIGN KEY (category_brand_id) REFERENCES category_brand (id),
+                                  PRIMARY KEY (id),
+                                  FOREIGN KEY (category_id) REFERENCES category (id),
+                                  FOREIGN KEY (brand_id) REFERENCES brand (id),
                                   FOREIGN KEY (model_id) REFERENCES model (id)
-
 );
 
 CREATE TABLE "region" (

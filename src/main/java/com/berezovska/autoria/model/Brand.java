@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 
 @EqualsAndHashCode(callSuper = true)
@@ -17,6 +18,9 @@ class Brand extends BaseEntity {
 
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "brand", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<CategoryBrandModelLink> categoryBrandModelLinks;
 
     @Override
     public boolean equals(Object o) {

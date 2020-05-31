@@ -28,15 +28,8 @@ class Category extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "body_id"))
     private Set<Body> bodies;
 
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-    @JoinTable(name = "category_brand",
-            joinColumns = @JoinColumn(name = "category_id"),
-            inverseJoinColumns = @JoinColumn(name = "brand_id")
-    )
-    private Set<Brand> brands;
+    @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<CategoryBrandModelLink> categoryBrandModelLinks;
 
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
