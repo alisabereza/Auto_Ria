@@ -1,5 +1,6 @@
 package com.berezovska.autoria.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import javax.persistence.MappedSuperclass;
 public abstract @Data class BaseEntity {
 
     @Id
+    @JsonProperty("value")
     //@GeneratedValue (strategy = GenerationType.AUTO)
     private int id;
 
