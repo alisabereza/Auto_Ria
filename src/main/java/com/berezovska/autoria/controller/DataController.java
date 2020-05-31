@@ -1,9 +1,12 @@
 package com.berezovska.autoria.controller;
 
+import com.berezovska.autoria.model.Body;
 import com.berezovska.autoria.model.Category;
 import com.berezovska.autoria.model.Colour;
+import com.berezovska.autoria.service.BodyService;
 import com.berezovska.autoria.service.CategoryService;
 import com.berezovska.autoria.service.ColourService;
+import com.berezovska.autoria.service.http.BodyHTTPRequest;
 import com.berezovska.autoria.service.http.CategoryHTTPRequest;
 import com.berezovska.autoria.service.http.ColourHTTPRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,8 @@ public class DataController {
     private CategoryService categoryService;
     @Autowired
     private ColourService colourService;
+    @Autowired
+    private BodyService bodyService;
 
     @GetMapping(path = "/updateData")
     public String updateData() {
@@ -31,6 +36,13 @@ public class DataController {
             categoryService.saveAll(categories);
             List<Colour> colours = new ColourHTTPRequest().getColours();
             colourService.saveAll(colours);
+            BodyHTTPRequest bodyHTTPRequest = new BodyHTTPRequest();
+            List<Body> bodies;
+            for (int i=1; i<=categories.size(); i++)
+            {
+                bodies = bodyHTTPRequest.getBodies(i);
+                bodyService.saveAll(bodies);
+            }
 
             return "data_updated";
         } catch (IOException e) {
