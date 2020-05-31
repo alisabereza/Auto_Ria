@@ -5,7 +5,7 @@ ALTER SCHEMA public OWNER TO postgres;
 
 --SCHEMA
 
-CREATE TABLE "user" (
+CREATE TABLE "client" (
                       id SERIAL,
                       password  VARCHAR NOT NULL,
                       email  VARCHAR NOT NULL,
@@ -126,13 +126,13 @@ CREATE TABLE "request" (
                            model_id INT NOT NULL,
                            region_id INT,
                            city_id INT,
-                           drive_id INT [],
-                           fuel_id INT [],
+                           drive_id INT,
+                           fuel_id INT,
                            gearbox_id INT,
                            colour_id INT,
-                           price_min DECIMAL,
-                           price_max DECIMAL,
-                           user_id INT NOT NULL,
+                           price_min FLOAT,
+                           price_max FLOAT,
+                           client_id INT NOT NULL,
                            PRIMARY KEY (id),
                            FOREIGN KEY (category_id) REFERENCES category (id),
                            FOREIGN KEY (body_id) REFERENCES body (id),
@@ -142,5 +142,7 @@ CREATE TABLE "request" (
                            FOREIGN KEY (city_id) REFERENCES city (id),
                            FOREIGN KEY (gearbox_id) REFERENCES gearbox (id),
                            FOREIGN KEY (colour_id) REFERENCES colour (id),
-                           FOREIGN KEY (user_id) REFERENCES "user" (id)
+                           FOREIGN KEY (client_id) REFERENCES client (id),
+                           FOREIGN KEY (drive_id) REFERENCES drive (id),
+                           FOREIGN KEY (fuel_id) REFERENCES fuel (id)
 );

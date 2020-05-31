@@ -69,7 +69,7 @@ class Request extends BaseEntity {
             CascadeType.MERGE
     })
     @JoinColumn(name = "drive_id", nullable = false)
-    private Drive[] drives;
+    private Drive drive;
 
 
     @ManyToOne(cascade = {
@@ -77,7 +77,7 @@ class Request extends BaseEntity {
             CascadeType.MERGE
     })
     @JoinColumn(name = "fuel_id", nullable = false)
-    private Fuel[] fuel;
+    private Fuel fuel;
 
 
     @ManyToOne(cascade = {
@@ -105,7 +105,7 @@ class Request extends BaseEntity {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "client_id", nullable = false)
     private User user;
 
 }

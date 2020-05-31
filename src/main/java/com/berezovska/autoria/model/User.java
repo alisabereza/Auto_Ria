@@ -12,7 +12,7 @@ import java.util.Objects;
 @EqualsAndHashCode(callSuper=true)
 @Entity
 @NoArgsConstructor
-@Table (name = "user")
+@Table (name = "client")
 public @Data class User extends BaseEntity {
     @NotEmpty
     @Column (name = "password")
