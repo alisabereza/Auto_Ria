@@ -1,8 +1,11 @@
 package com.berezovska.autoria.controller;
 
 import com.berezovska.autoria.model.Category;
+import com.berezovska.autoria.model.Colour;
 import com.berezovska.autoria.service.CategoryService;
-import com.berezovska.autoria.service.http.UpdateCategories;
+import com.berezovska.autoria.service.ColourService;
+import com.berezovska.autoria.service.http.CategoryHTTPRequest;
+import com.berezovska.autoria.service.http.ColourHTTPRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,12 +21,17 @@ import java.util.List;
 public class DataController {
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private ColourService colourService;
 
     @GetMapping(path = "/updateData")
     public String updateData() {
         try {
-            List<Category> categories = new UpdateCategories().getCategories();
+            List<Category> categories = new CategoryHTTPRequest().getCategories();
             categoryService.saveAll(categories);
+            List<Colour> colours = new ColourHTTPRequest().getColours();
+            colourService.saveAll(colours);
+
             return "data_updated";
         } catch (IOException e) {
             e.printStackTrace();
