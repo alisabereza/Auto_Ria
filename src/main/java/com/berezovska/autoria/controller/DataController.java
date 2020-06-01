@@ -28,6 +28,12 @@ public class DataController {
     private CityService cityService;
     @Autowired
     private RegionCityLinkService regionCityLinkService;
+    @Autowired
+    private BrandService brandService;
+    @Autowired
+    private ModelService modelService;
+    @Autowired
+    private CategoryBrandModelLinkService categoryBrandModelLinkService;
 
 
     @GetMapping(path = "/updateData")
@@ -52,7 +58,6 @@ public class DataController {
                 }
             }
             List<Region> regions = new RegionHTTPRequest().getRegions();
-            System.out.println(regions);
             regionService.saveAll(regions);
             CityHTTPRequest cityHTTPRequest = new CityHTTPRequest();
             List<City> cities;
@@ -61,7 +66,6 @@ public class DataController {
             for (int i=1; i<=regions.size(); i++)
             {
                 cities = cityHTTPRequest.getCities(i);
-                System.out.println(cities);
                 cityService.saveAll(cities);
                 for (int j=0; j<cities.size(); j++) {
                     regionCityLink = new RegionCityLink(k,regions.get(i-1), cities.get(j));
@@ -70,6 +74,28 @@ public class DataController {
                 }
             }
 
+            BrandHTTPRequest brandHTTPRequest = new BrandHTTPRequest();
+            List<Brand> brands;
+            ModelHTTPRequest modelHTTPRequest = new ModelHTTPRequest();
+            List<Model> models;
+            CategoryBrandModelLink categoryBrandModelLink;
+            k=1;
+            int m=1;
+            for (int i=1; i<=categories.size(); i++)
+            {
+                brands = brandHTTPRequest.getBrands(i);
+                brandService.saveAll(brands);
+                for (int j=1; j<=brands.size(); j++) {
+                    models = modelHTTPRequest.getModels(i,j);
+                    modelService.saveAll(models);
+                    for (int l=1; l<=models.size(); l++) {
+                        categoryBrandModelLink = new CategoryBrandModelLink(m, categories.get(i-1), brands.get(j-1), models.get(l-1));
+                        categoryBrandModelLinkService.save(categoryBrandModelLink);
+                        m++;
+                    }
+                    k++;
+                }
+            }
 
 
 

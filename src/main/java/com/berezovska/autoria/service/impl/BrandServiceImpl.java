@@ -1,0 +1,45 @@
+package com.berezovska.autoria.service.impl;
+
+import com.berezovska.autoria.model.Brand;
+import com.berezovska.autoria.repository.BrandRepository;
+import com.berezovska.autoria.service.BrandService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class BrandServiceImpl implements BrandService {
+
+    @Autowired
+    private BrandRepository brandRepository;
+    @Override
+    public List<Brand> getAll() {
+        return null;
+    }
+
+    @Override
+    public Brand getById(int id) {
+        return null;
+    }
+
+    @Override
+    public void save(Brand entity) {
+brandRepository.save(entity);
+    }
+
+    @Override
+    public void saveAll(List<Brand> entities) {
+brandRepository.saveAll(entities);
+    }
+
+    @Override
+    public void delete(int id) {
+
+    }
+
+    @Override
+    public Brand update(Brand entity) {
+        return null;
+    }
+}

@@ -26,4 +26,11 @@ class CategoryBrandModelLink extends BaseEntity {
     @JoinColumn(name = "model_id")
     private Model model;
 
+    public CategoryBrandModelLink(int id, Category category, Brand brand, Model model) {
+        this.setId(id);
+        this.category = category;
+        this.brand = brand;
+        this.model = model;
+
+    }
 }
