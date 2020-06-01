@@ -1,11 +1,10 @@
 package com.berezovska.autoria.service.impl;
 
-import com.berezovska.autoria.controller.exception.UserAlreadyExistsException;
-import com.berezovska.autoria.controller.exception.UserNotExistsException;
+import com.berezovska.autoria.controller.exception.EntityAlreadyExistsException;
+import com.berezovska.autoria.controller.exception.EntityNotExistsException;
 import com.berezovska.autoria.model.Colour;
 import com.berezovska.autoria.repository.ColourRepository;
 import com.berezovska.autoria.service.ColourService;
-import com.berezovska.autoria.service.http.OkHttpSingleton;
 import lombok.Data;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,12 +19,11 @@ class ColourServiceImpl implements ColourService {
     private static final Logger LOG = LogManager.getLogger(ColourServiceImpl.class);
     @Autowired
     private ColourRepository colourRepository;
-    @Autowired
-    private OkHttpSingleton instance;
+
 
     @Override
     public List<Colour> getAll() {
-        LOG.debug("get All Categories: ");
+        LOG.debug("get All Colours: ");
         return colourRepository.findAll();
     }
 
@@ -33,13 +31,13 @@ class ColourServiceImpl implements ColourService {
     public Colour getById(int id) {
         LOG.debug("getUser: id=" + id);
         return colourRepository.findById(id)
-                .orElseThrow(() -> new UserNotExistsException(String.format("Colour with id = %s not found", id)));
+                .orElseThrow(() -> new EntityNotExistsException(String.format("Colour with id = %s not found", id)));
     }
 
     @Override
     public void save(Colour colour) {
         if (colourRepository.findById(colour.getId()).isPresent()) {
-            throw new UserAlreadyExistsException("This colour already exists");
+            throw new EntityAlreadyExistsException("This colour already exists");
         }
         colourRepository.save(colour);
     }

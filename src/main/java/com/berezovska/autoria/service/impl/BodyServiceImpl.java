@@ -1,7 +1,7 @@
 package com.berezovska.autoria.service.impl;
 
-import com.berezovska.autoria.controller.exception.UserAlreadyExistsException;
-import com.berezovska.autoria.controller.exception.UserNotExistsException;
+import com.berezovska.autoria.controller.exception.EntityAlreadyExistsException;
+import com.berezovska.autoria.controller.exception.EntityNotExistsException;
 import com.berezovska.autoria.model.Body;
 import com.berezovska.autoria.repository.BodyRepository;
 import com.berezovska.autoria.repository.CategoryBodyLinkRepository;
@@ -33,13 +33,13 @@ class BodyServiceImpl implements BodyService {
     public Body getById(int id) {
         LOG.debug("getUser: id=" + id);
         return bodyRepository.findById(id)
-                .orElseThrow(() -> new UserNotExistsException(String.format("Body with id = %s not found", id)));
+                .orElseThrow(() -> new EntityNotExistsException(String.format("Body with id = %s not found", id)));
     }
 
     @Override
     public void save(Body body) {
         if (bodyRepository.findById(body.getId()).isPresent()) {
-            throw new UserAlreadyExistsException("This colour already exists");
+            throw new EntityAlreadyExistsException("This colour already exists");
         }
         bodyRepository.save(body);
     }

@@ -1,8 +1,8 @@
 package com.berezovska.autoria.controller;
 
 import com.berezovska.autoria.controller.exception.ErrorMessage;
-import com.berezovska.autoria.controller.exception.UserAlreadyExistsException;
-import com.berezovska.autoria.controller.exception.UserNotExistsException;
+import com.berezovska.autoria.controller.exception.EntityAlreadyExistsException;
+import com.berezovska.autoria.controller.exception.EntityNotExistsException;
 import com.berezovska.autoria.model.User;
 import com.berezovska.autoria.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +50,7 @@ public class UserController {
         User user = null;
         try {
             user = userService.getByEmail(email);
-        } catch (UserNotExistsException e) {
+        } catch (EntityNotExistsException e) {
             model.addAttribute("error", e.getMessage());
             return "find_user";
         }
@@ -95,7 +95,7 @@ public class UserController {
             userService.save(user);
             model.addAttribute("email", user.getEmail());
             return "user_created";
-        } catch (UserAlreadyExistsException e) {
+        } catch (EntityAlreadyExistsException e) {
 
             model.addAttribute("errors", List.of(new ErrorMessage("", e.getMessage())));
             return "create_user";

@@ -1,8 +1,8 @@
 package com.berezovska.autoria.service.impl;
 
 
-import com.berezovska.autoria.controller.exception.UserAlreadyExistsException;
-import com.berezovska.autoria.controller.exception.UserNotExistsException;
+import com.berezovska.autoria.controller.exception.EntityAlreadyExistsException;
+import com.berezovska.autoria.controller.exception.EntityNotExistsException;
 import com.berezovska.autoria.model.Category;
 import com.berezovska.autoria.repository.CategoryRepository;
 import com.berezovska.autoria.service.CategoryService;
@@ -33,13 +33,13 @@ import java.util.List;
         public Category getById(int id) {
             LOG.debug("getUser: id=" + id);
             return categoryRepository.findById(id)
-                    .orElseThrow(() -> new UserNotExistsException(String.format("User with id = %s not found", id)));
+                    .orElseThrow(() -> new EntityNotExistsException(String.format("User with id = %s not found", id)));
         }
 
         @Override
         public void save(Category category) {
             if (categoryRepository.findById(category.getId()).isPresent()) {
-                throw new UserAlreadyExistsException("This category already exists");
+                throw new EntityAlreadyExistsException("This category already exists");
             }
         categoryRepository.save(category);
         }

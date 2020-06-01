@@ -24,15 +24,12 @@ public class CategoryBodyLinkServiceImpl implements CategoryBodyLinkService {
 
     @Override
     public void save(CategoryBodyLink categoryBodyLink) {
-/*        if (categoryBodyLinkRepository.findById(categoryBodyLink.getId()).isPresent()) {
-            throw new UserAlreadyExistsException("This connection already exists");
-        }*/
         categoryBodyLinkRepository.save(categoryBodyLink);
     }
 
     @Override
     public void saveAll(List<CategoryBodyLink> entities) {
-
+categoryBodyLinkRepository.saveAll(entities);
     }
 
     @Override

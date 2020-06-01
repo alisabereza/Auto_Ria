@@ -1,16 +1,8 @@
 package com.berezovska.autoria.controller;
 
-import com.berezovska.autoria.model.Body;
-import com.berezovska.autoria.model.Category;
-import com.berezovska.autoria.model.CategoryBodyLink;
-import com.berezovska.autoria.model.Colour;
-import com.berezovska.autoria.service.BodyService;
-import com.berezovska.autoria.service.CategoryBodyLinkService;
-import com.berezovska.autoria.service.CategoryService;
-import com.berezovska.autoria.service.ColourService;
-import com.berezovska.autoria.service.http.BodyHTTPRequest;
-import com.berezovska.autoria.service.http.CategoryHTTPRequest;
-import com.berezovska.autoria.service.http.ColourHTTPRequest;
+import com.berezovska.autoria.model.*;
+import com.berezovska.autoria.service.*;
+import com.berezovska.autoria.service.http.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +22,13 @@ public class DataController {
     private BodyService bodyService;
     @Autowired
     private CategoryBodyLinkService categoryBodyLinkService;
+    @Autowired
+    private RegionService regionService;
+    @Autowired
+    private CityService cityService;
+    @Autowired
+    private RegionCityLinkService regionCityLinkService;
+
 
     @GetMapping(path = "/updateData")
     public String updateData() {
@@ -47,11 +46,32 @@ public class DataController {
                 bodies = bodyHTTPRequest.getBodies(i);
                 bodyService.saveAll(bodies);
                 for (int j=0; j<bodies.size(); j++) {
-                    categoryBodyLink = new CategoryBodyLink(k, categories.get(i-1), bodies.get(j));
+                    categoryBodyLink = new CategoryBodyLink(k,categories.get(i-1), bodies.get(j));
                     categoryBodyLinkService.save(categoryBodyLink);
                     k++;
                 }
             }
+            List<Region> regions = new RegionHTTPRequest().getRegions();
+            System.out.println(regions);
+            regionService.saveAll(regions);
+            CityHTTPRequest cityHTTPRequest = new CityHTTPRequest();
+            List<City> cities;
+            RegionCityLink regionCityLink;
+            k=1;
+            for (int i=1; i<=regions.size(); i++)
+            {
+                cities = cityHTTPRequest.getCities(i);
+                System.out.println(cities);
+                cityService.saveAll(cities);
+                for (int j=0; j<cities.size(); j++) {
+                    regionCityLink = new RegionCityLink(k,regions.get(i-1), cities.get(j));
+                    regionCityLinkService.save(regionCityLink);
+                    k++;
+                }
+            }
+
+
+
 
             return "data_updated";
         } catch (IOException e) {

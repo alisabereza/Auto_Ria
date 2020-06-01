@@ -1,7 +1,7 @@
 package com.berezovska.autoria.service.impl;
 
-import com.berezovska.autoria.controller.exception.UserAlreadyExistsException;
-import com.berezovska.autoria.controller.exception.UserNotExistsException;
+import com.berezovska.autoria.controller.exception.EntityAlreadyExistsException;
+import com.berezovska.autoria.controller.exception.EntityNotExistsException;
 import com.berezovska.autoria.model.User;
 import com.berezovska.autoria.model.UserRole;
 import com.berezovska.autoria.model.UserStatus;
@@ -35,13 +35,13 @@ class UserServiceImpl implements UserService {
     public User getById(int id) {
         LOG.debug("getUser: id=" + id);
         return userRepository.findById(id)
-                .orElseThrow(() -> new UserNotExistsException(String.format("User with id = %s not found", id)));
+                .orElseThrow(() -> new EntityNotExistsException(String.format("User with id = %s not found", id)));
     }
 
     @Override
     public void save(User user) {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            throw new UserAlreadyExistsException("There is an account with that email address: " + user.getEmail());
+            throw new EntityAlreadyExistsException("There is an account with that email address: " + user.getEmail());
         }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setUserRole(UserRole.ROLE_CUSTOMER);
@@ -68,7 +68,7 @@ class UserServiceImpl implements UserService {
     public User getByEmail(String email) {
         LOG.debug(String.format("getUser: email=%s", email));
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new UserNotExistsException("User not found by specified email"));
+                .orElseThrow(() -> new EntityNotExistsException("User not found by specified email"));
     }
 
     @Override
