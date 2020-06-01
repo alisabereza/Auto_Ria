@@ -1,6 +1,6 @@
 package com.berezovska.autoria.service.http;
 
-import com.berezovska.autoria.model.Body;
+import com.berezovska.autoria.model.City;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -15,20 +15,20 @@ import java.util.List;
 import java.util.Properties;
 
 @Service
-public class BodyHTTPRequest {
-    private static final Logger LOG = LogManager.getLogger(BodyHTTPRequest.class);
+public class CityHttpRequest {
+    private static final Logger LOG = LogManager.getLogger(CityHttpRequest.class);
     private OkHttpSingleton instance;
     private OkHttpClient client;
 
-    public BodyHTTPRequest() {
+    public CityHttpRequest() {
         this.instance = OkHttpSingleton.getInstance();
         this.client = instance.getClient();
     }
 
 
-    public List<Body> getBodies (int categoryNumber) throws IOException {
+    public List<City> getCities (int stateNumber) throws IOException {
         Properties properties = new Url().getProperties();
-        String url=String.format("%s%s%s%s%s",properties.getProperty("BaseUrl"),"categories/",categoryNumber,"/bodystyles?api_key=",properties.getProperty("API_KEY"));
+        String url=String.format("%s%s%s%s%s",properties.getProperty("BaseUrl"),"states/",stateNumber,"/cities?api_key=",properties.getProperty("API_KEY"));
         System.out.println(url);
         Request request = new Request.Builder()
                 .url(url)
@@ -38,14 +38,14 @@ public class BodyHTTPRequest {
         Response response;
         response =client.newCall(request).execute();
 
-        List <Body> bodies = mapBodies(response);
-        LOG.debug((bodies.size()==0)?"No Colours found":"Colours found");
-        return bodies;
+        List <City> Cities = mapCities(response);
+        LOG.debug((Cities.size()==0)?"No Cities found":"Cities found");
+        return Cities;
     }
 
-    private static List<Body> mapBodies (Response response) throws IOException {
+    private static List<City> mapCities (Response response) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        return Arrays.asList(mapper.readValue(response.body().string(), Body[].class));
+        return Arrays.asList(mapper.readValue(response.body().string(), City[].class));
     }
 
 }

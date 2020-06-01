@@ -1,5 +1,6 @@
 package com.berezovska.autoria.model;
 
+import com.berezovska.autoria.model.linking.RegionCityLink;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

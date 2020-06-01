@@ -1,7 +1,7 @@
 package com.berezovska.autoria.repository;
 
 import com.berezovska.autoria.model.Category;
-import com.berezovska.autoria.model.CategoryBrandModelLink;
+import com.berezovska.autoria.model.linking.CategoryBrandModelLink;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

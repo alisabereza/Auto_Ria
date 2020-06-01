@@ -1,6 +1,6 @@
 package com.berezovska.autoria.service.impl;
 
-import com.berezovska.autoria.model.CategoryBodyLink;
+import com.berezovska.autoria.model.linking.CategoryBodyLink;
 import com.berezovska.autoria.repository.CategoryBodyLinkRepository;
 import com.berezovska.autoria.service.CategoryBodyLinkService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.berezovska.autoria.service.http;
 
-import com.berezovska.autoria.model.Region;
+import com.berezovska.autoria.model.Category;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -15,19 +15,19 @@ import java.util.List;
 import java.util.Properties;
 
 @Service
-public class RegionHTTPRequest {
-    private static final Logger LOG = LogManager.getLogger(RegionHTTPRequest.class);
+public class CategoryHttpRequest {
+    private static final Logger LOG = LogManager.getLogger(CategoryHttpRequest.class);
     private OkHttpSingleton instance;
     private OkHttpClient client;
 
-    public RegionHTTPRequest() {
+    public CategoryHttpRequest() {
         this.instance = OkHttpSingleton.getInstance();
         this.client = instance.getClient();
     }
 
-    public List<Region> getRegions () throws IOException {
+    public List<Category> getCategories () throws IOException {
         Properties properties = new Url().getProperties();
-        String url=String.format("%s%s%s",properties.getProperty("BaseUrl"),"states?api_key=",properties.getProperty("API_KEY"));
+        String url=String.format("%s%s%s",properties.getProperty("BaseUrl"),"categories?api_key=",properties.getProperty("API_KEY"));
         System.out.println(url);
         Request request = new Request.Builder()
                 .url(url)
@@ -37,15 +37,15 @@ public class RegionHTTPRequest {
         Response response;
         response =client.newCall(request).execute();
 
-        List <Region> regions = mapRegions(response);
+        List <Category> categories = mapCategories(response);
 
-        LOG.debug((regions.size()==0)?"No Region found":"Region found");
-        return regions;
+        LOG.debug((categories.size()==0)?"No Category found":"Category found");
+        return categories;
     }
 
-    private static List<Region> mapRegions (Response response) throws IOException {
+    private static List<Category> mapCategories (Response response) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        return Arrays.asList(mapper.readValue(response.body().string(), Region[].class));
+        return Arrays.asList(mapper.readValue(response.body().string(), Category[].class));
     }
 
 }

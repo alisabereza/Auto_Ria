@@ -1,5 +1,8 @@
-package com.berezovska.autoria.model;
+package com.berezovska.autoria.model.linking;
 
+import com.berezovska.autoria.model.BaseEntity;
+import com.berezovska.autoria.model.City;
+import com.berezovska.autoria.model.Region;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

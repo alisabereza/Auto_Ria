@@ -1,6 +1,6 @@
 package com.berezovska.autoria.service.impl;
 
-import com.berezovska.autoria.model.RegionCityLink;
+import com.berezovska.autoria.model.linking.RegionCityLink;
 import com.berezovska.autoria.repository.RegionCityLinkRepository;
 import com.berezovska.autoria.service.RegionCityLinkService;
 import org.springframework.beans.factory.annotation.Autowired;

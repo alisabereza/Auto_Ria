@@ -1,6 +1,6 @@
 package com.berezovska.autoria.service.impl;
 
-import com.berezovska.autoria.model.CategoryBrandModelLink;
+import com.berezovska.autoria.model.linking.CategoryBrandModelLink;
 import com.berezovska.autoria.repository.CategoryBrandModelLinkRepository;
 import com.berezovska.autoria.service.CategoryBrandModelLinkService;
 import org.springframework.beans.factory.annotation.Autowired;

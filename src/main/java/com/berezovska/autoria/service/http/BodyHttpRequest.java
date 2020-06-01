@@ -1,6 +1,6 @@
 package com.berezovska.autoria.service.http;
 
-import com.berezovska.autoria.model.Colour;
+import com.berezovska.autoria.model.Body;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -15,20 +15,20 @@ import java.util.List;
 import java.util.Properties;
 
 @Service
-public class ColourHTTPRequest {
-    private static final Logger LOG = LogManager.getLogger(ColourHTTPRequest.class);
+public class BodyHttpRequest {
+    private static final Logger LOG = LogManager.getLogger(BodyHttpRequest.class);
     private OkHttpSingleton instance;
     private OkHttpClient client;
 
-    public ColourHTTPRequest() {
+    public BodyHttpRequest() {
         this.instance = OkHttpSingleton.getInstance();
         this.client = instance.getClient();
     }
 
 
-    public List<Colour> getColours () throws IOException {
+    public List<Body> getBodies (int categoryNumber) throws IOException {
         Properties properties = new Url().getProperties();
-        String url=String.format("%s%s%s",properties.getProperty("BaseUrl"),"colors?api_key=",properties.getProperty("API_KEY"));
+        String url=String.format("%s%s%s%s%s",properties.getProperty("BaseUrl"),"categories/",categoryNumber,"/bodystyles?api_key=",properties.getProperty("API_KEY"));
         System.out.println(url);
         Request request = new Request.Builder()
                 .url(url)
@@ -38,14 +38,14 @@ public class ColourHTTPRequest {
         Response response;
         response =client.newCall(request).execute();
 
-        List <Colour> colours = mapColours(response);
-        LOG.debug((colours.size()==0)?"No Colours found":"Colours found");
-        return colours;
+        List <Body> bodies = mapBodies(response);
+        LOG.debug((bodies.size()==0)?"No Colours found":"Colours found");
+        return bodies;
     }
 
-    private static List<Colour> mapColours (Response response) throws IOException {
+    private static List<Body> mapBodies (Response response) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        return Arrays.asList(mapper.readValue(response.body().string(), Colour[].class));
+        return Arrays.asList(mapper.readValue(response.body().string(), Body[].class));
     }
 
 }

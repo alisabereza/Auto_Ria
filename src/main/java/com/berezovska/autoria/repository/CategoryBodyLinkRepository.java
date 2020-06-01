@@ -1,7 +1,7 @@
 package com.berezovska.autoria.repository;
 
 import com.berezovska.autoria.model.Body;
-import com.berezovska.autoria.model.CategoryBodyLink;
+import com.berezovska.autoria.model.linking.CategoryBodyLink;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

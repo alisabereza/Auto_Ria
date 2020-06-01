@@ -1,5 +1,9 @@
-package com.berezovska.autoria.model;
+package com.berezovska.autoria.model.linking;
 
+import com.berezovska.autoria.model.BaseEntity;
+import com.berezovska.autoria.model.Brand;
+import com.berezovska.autoria.model.Category;
+import com.berezovska.autoria.model.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
