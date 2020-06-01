@@ -72,10 +72,12 @@ CREATE TABLE "city" (
 );
 
 CREATE TABLE "region_city" (
+                               id SERIAL,
                                  region_id INT NOT NULL,
                                  city_id INT NOT NULL,
                                  FOREIGN KEY (region_id) REFERENCES region (id),
-                                 FOREIGN KEY (city_id) REFERENCES city (id)
+                                 FOREIGN KEY (city_id) REFERENCES city (id),
+                                 PRIMARY KEY (id)
 
 );
 

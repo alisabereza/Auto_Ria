@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 
 @EqualsAndHashCode(callSuper=true)
@@ -16,6 +17,9 @@ public @Data
 class City extends BaseEntity {
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "city", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<RegionCityLink> regionCityLinks;
 
     @Override
     public boolean equals(Object o) {

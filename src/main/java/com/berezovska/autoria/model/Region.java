@@ -18,14 +18,8 @@ class Region extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-    @JoinTable (name="region_city",
-            joinColumns = @JoinColumn(name = "region_id"),
-            inverseJoinColumns = @JoinColumn(name = "city_id"))
-    private Set<City> cities;
+    @OneToMany(mappedBy = "region", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<RegionCityLink> regionCityLinks;
 
     @Override
     public boolean equals(Object o) {
