@@ -1,5 +1,9 @@
 package com.berezovska.autoria.model;
 
+import com.berezovska.autoria.model.linking.CategoryBodyLink;
+import com.berezovska.autoria.model.linking.CategoryBrandModelLink;
+import com.berezovska.autoria.model.linking.CategoryDriveLink;
+import com.berezovska.autoria.model.linking.CategoryGearboxLink;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -21,6 +25,12 @@ class Category extends BaseEntity {
 
     @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<CategoryBodyLink> categoryBodyLinks;
+
+    @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<CategoryDriveLink> categoryDriveLinks;
+
+    @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<CategoryGearboxLink> categoryGearboxLinks;
 
     @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<CategoryBrandModelLink> categoryBrandModelLinks;

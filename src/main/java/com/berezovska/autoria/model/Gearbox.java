@@ -1,13 +1,13 @@
 package com.berezovska.autoria.model;
 
+import com.berezovska.autoria.model.linking.CategoryGearboxLink;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @EqualsAndHashCode(callSuper=true)
 @NoArgsConstructor
@@ -17,6 +17,9 @@ public @Data
 class Gearbox extends BaseEntity {
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<CategoryGearboxLink> categoryGearboxLinks;
 
     @Override
     public boolean equals(Object o) {

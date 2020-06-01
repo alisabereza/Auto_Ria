@@ -88,11 +88,12 @@ CREATE TABLE "drive" (
 );
 
 CREATE TABLE "category_drive" (
+                                  id SERIAL,
                          category_id INT NOT NULL,
                          drive_id INT NOT NULL,
                          FOREIGN KEY (category_id) REFERENCES category (id),
-                         FOREIGN KEY (drive_id) REFERENCES drive (id)
-
+                         FOREIGN KEY (drive_id) REFERENCES drive (id),
+                         PRIMARY KEY (id)
 );
 
 CREATE TABLE "fuel" (
@@ -108,10 +109,12 @@ CREATE TABLE "gearbox" (
 );
 
 CREATE TABLE "category_gearbox" (
+    id SERIAL,
                                  category_id INT NOT NULL,
                                  gearbox_id INT NOT NULL,
                                  FOREIGN KEY (category_id) REFERENCES category (id),
-                                 FOREIGN KEY (gearbox_id) REFERENCES gearbox (id)
+                                 FOREIGN KEY (gearbox_id) REFERENCES gearbox (id),
+                                 PRIMARY KEY (id)
 
 );
 
