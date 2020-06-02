@@ -8,7 +8,7 @@
         </button>
         <div class="dropdown-content">
             <a href="${pageContext.request.contextPath}/data/updateData">Update Data</a>
-            <a href="${pageContext.request.contextPath}/data/Search">Search</a>
+            <a href="${pageContext.request.contextPath}/data/search">Search</a>
         </div>
     </div>
     <security:authorize access="hasRole('ROLE_ADMIN')">

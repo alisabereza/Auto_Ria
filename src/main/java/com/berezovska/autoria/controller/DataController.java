@@ -1,18 +1,28 @@
 package com.berezovska.autoria.controller;
 
+import com.berezovska.autoria.controller.exception.EntityAlreadyExistsException;
+import com.berezovska.autoria.controller.exception.ErrorMessage;
 import com.berezovska.autoria.model.*;
-import com.berezovska.autoria.model.linking.*;
+import com.berezovska.autoria.model.linking.CategoryBodyLink;
+import com.berezovska.autoria.model.linking.CategoryDriveLink;
+import com.berezovska.autoria.model.linking.CategoryGearboxLink;
+import com.berezovska.autoria.model.linking.RegionCityLink;
 import com.berezovska.autoria.service.*;
 import com.berezovska.autoria.service.http.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/data")
 public class DataController {
     @Autowired
@@ -45,6 +55,8 @@ public class DataController {
     private CategoryDriveLinkService categoryDriveLinkService;
     @Autowired
     private CategoryGearboxLinkService categoryGearboxLinkService;
+    @Autowired
+    private RequestService requestService;
 
     @GetMapping(path = "/updateData")
     public String updateData() {
@@ -64,8 +76,8 @@ public class DataController {
             {
                 bodies = bodyHTTPRequest.getBodies(i);
                 bodyService.saveAll(bodies);
-                for (int j=0; j<bodies.size(); j++) {
-                    categoryBodyLink = new CategoryBodyLink(k,categories.get(i-1), bodies.get(j));
+                for (Body body : bodies) {
+                    categoryBodyLink = new CategoryBodyLink(k, categories.get(i - 1), body);
                     categoryBodyLinkService.save(categoryBodyLink);
                     k++;
                 }
@@ -79,8 +91,8 @@ public class DataController {
             {
                 drives = driveHttpRequest.getDrives(i);
                 driveService.saveAll(drives);
-                for (int j=0; j<drives.size(); j++) {
-                    categoryDriveLink = new CategoryDriveLink(k,categories.get(i-1), drives.get(j));
+                for (Drive drive : drives) {
+                    categoryDriveLink = new CategoryDriveLink(k, categories.get(i - 1), drive);
                     categoryDriveLinkService.save(categoryDriveLink);
                     k++;
                 }
@@ -94,8 +106,8 @@ public class DataController {
             {
                 gearboxes = gearboxHttpRequest.getGearboxes(i);
                 gearboxService.saveAll(gearboxes);
-                for (int j=0; j<gearboxes.size(); j++) {
-                    categoryGearboxLink = new CategoryGearboxLink(k,categories.get(i-1), gearboxes.get(j));
+                for (Gearbox gearbox : gearboxes) {
+                    categoryGearboxLink = new CategoryGearboxLink(k, categories.get(i - 1), gearbox);
                     categoryGearboxLinkService.save(categoryGearboxLink);
                     k++;
                 }
@@ -111,8 +123,8 @@ public class DataController {
             {
                 cities = cityHTTPRequest.getCities(i);
                 cityService.saveAll(cities);
-                for (int j=0; j<cities.size(); j++) {
-                    regionCityLink = new RegionCityLink(k,regions.get(i-1), cities.get(j));
+                for (City city : cities) {
+                    regionCityLink = new RegionCityLink(k, regions.get(i - 1), city);
                     regionCityLinkService.save(regionCityLink);
                     k++;
                 }
@@ -148,5 +160,32 @@ public class DataController {
             e.printStackTrace();
             return "";
         }
+    }
+
+    @GetMapping(path = "/search")
+    public String getCreateSearchView(org.springframework.ui.Model model) {
+        return "search_request";
+    }
+
+
+    @PostMapping(path = "/search")
+    public String createSearchRequest(@ModelAttribute("searchForm") @Valid Request request, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "search_request";
+        }
+        try {
+            requestService.save(request);
+            model.addAttribute("id", request.getId());
+            return "search_result";
+        } catch (EntityAlreadyExistsException e) {
+
+            model.addAttribute("errors", List.of(new ErrorMessage("", e.getMessage())));
+            return "search_request";
+        }
+    }
+
+    @ModelAttribute("searchForm")
+    public Request getDefaultRequest() {
+        return new Request();
     }
 }
