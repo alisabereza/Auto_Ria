@@ -15,7 +15,8 @@ public class CategoryBrandModelLinkServiceImpl implements CategoryBrandModelLink
     private CategoryBrandModelLinkRepository categoryBrandModelLinkRepository;
     @Override
     public List<CategoryBrandModelLink> getAll() {
-        return null;
+
+        return categoryBrandModelLinkRepository.findAll();
     }
 
     @Override
