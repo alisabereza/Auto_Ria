@@ -39,6 +39,7 @@ public class SearchController {
     public String loadBrandsByCategory(@PathVariable("category_id") int category_id) {
         Gson gson = new Gson();
        List<Brand> brands = brandService.findByCategory(category_id);
+        brands.forEach(System.out::println);
 
 try {
         String stringGson = gson.toJson(brands);
