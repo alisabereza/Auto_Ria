@@ -1,22 +1,17 @@
 package com.berezovska.autoria.controller;
 
-import com.berezovska.autoria.controller.exception.EntityAlreadyExistsException;
-import com.berezovska.autoria.controller.exception.ErrorMessage;
 import com.berezovska.autoria.model.*;
-import com.berezovska.autoria.model.linking.*;
+import com.berezovska.autoria.model.linking.CategoryBodyLink;
+import com.berezovska.autoria.model.linking.CategoryDriveLink;
+import com.berezovska.autoria.model.linking.CategoryGearboxLink;
+import com.berezovska.autoria.model.linking.RegionCityLink;
 import com.berezovska.autoria.service.*;
 import com.berezovska.autoria.service.http.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -160,32 +155,4 @@ public class DataController {
         }
     }
 
-    @GetMapping(path = "/search")
-    public ModelAndView getCreateSearchView(org.springframework.ui.Model model) {
-        List<CategoryBrandModelLink> categoryBrandModelLinks = categoryBrandModelLinkService.getAll();
-        model.addAttribute("categoryBrandModelList", categoryBrandModelLinks);
-        return new ModelAndView("search_request");
-    }
-
-
-    @PostMapping(path = "/search")
-    public String createSearchRequest(@ModelAttribute("searchForm") @Valid CategoryBrandModelLink categoryBrandModelLink, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "search_request";
-        }
-        try {
-            categoryBrandModelLinkService.save(categoryBrandModelLink);
-            model.addAttribute("id", categoryBrandModelLink.getId());
-            return "search_result";
-        } catch (EntityAlreadyExistsException e) {
-
-            model.addAttribute("errors", List.of(new ErrorMessage("", e.getMessage())));
-            return "search_request";
-        }
-    }
-
-    @ModelAttribute("searchForm")
-    public CategoryBrandModelLink getDefaultCategoryBrandModel() {
-        return new CategoryBrandModelLink();
-    }
 }

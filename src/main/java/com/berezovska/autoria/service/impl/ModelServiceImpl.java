@@ -4,6 +4,7 @@ import com.berezovska.autoria.model.Model;
 import com.berezovska.autoria.repository.ModelRepository;
 import com.berezovska.autoria.service.ModelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @Service
 public class ModelServiceImpl implements ModelService {
 
+    @Qualifier("modelRepository")
     @Autowired
     private ModelRepository modelRepository;
     @Override
@@ -41,5 +43,10 @@ modelRepository.saveAll(entities);
     @Override
     public Model update(Model entity) {
         return null;
+    }
+
+    @Override
+    public List<Model> findByCategoryAndBrand(int categoryId, int brandId) {
+        return modelRepository.findByCategoryAndBrand(categoryId, brandId);
     }
 }

@@ -21,6 +21,11 @@ class Model extends BaseEntity {
     @OneToMany(mappedBy = "model", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<CategoryBrandModelLink> categoryBrandModelLinks;
 
+    public Model (int id, String name) {
+        this.setId(id);
+        this.name = name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

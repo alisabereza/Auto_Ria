@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,7 +16,7 @@ import java.util.Set;
 @Entity
 @Table(name = "brand")
 public @Data
-class Brand extends BaseEntity {
+class Brand extends BaseEntity implements Serializable {
 
     @Column(name = "name")
     private String name;
@@ -36,12 +37,14 @@ class Brand extends BaseEntity {
         return Objects.hash(name);
     }
 
-    @Override
+   @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder(("Brand{"));
-        sb.append(super.toString());
-        sb.append(", name=").append(getName());
-        sb.append("}");
+        final StringBuilder sb = new StringBuilder(("{id:"));
+        sb.append(getId());
+        sb.append(",name:").append(getName());
+          sb.append("}");;
+
         return sb.toString();
     }
 }
+
