@@ -1,6 +1,7 @@
 package com.berezovska.autoria.model;
 
 import com.berezovska.autoria.model.linking.CategoryBrandModelLink;
+import com.google.gson.annotations.Expose;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ public @Data
 class Brand extends BaseEntity implements Serializable {
 
     @Column(name = "name")
+    @Expose
     private String name;
 
     @OneToMany(mappedBy = "brand", cascade = {CascadeType.PERSIST, CascadeType.MERGE})

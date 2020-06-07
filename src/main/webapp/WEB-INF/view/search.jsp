@@ -6,6 +6,9 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>AutoRia Search Request Dropdown lists</title>
+    <link href="${contextPath}/resources/css/style.css" rel="stylesheet"/>
+
+
     <script src="${pageContext.request.contextPath }/resources/js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
@@ -50,6 +53,8 @@
     </script>
 </head>
 <body>
+<p></p>
+<c:import url="${contextPath}/WEB-INF/view/navibar.jsp"/>
 
 <form>
     <table>

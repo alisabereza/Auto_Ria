@@ -1,6 +1,7 @@
 package com.berezovska.autoria.model;
 
 import com.berezovska.autoria.model.linking.CategoryBrandModelLink;
+import com.google.gson.annotations.Expose;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.Set;
 public @Data
 class Model extends BaseEntity {
     @Column(name = "name")
+    @Expose
     private String name;
 
     @OneToMany(mappedBy = "model", cascade = {CascadeType.PERSIST, CascadeType.MERGE})

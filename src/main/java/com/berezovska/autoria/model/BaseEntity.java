@@ -1,6 +1,7 @@
 package com.berezovska.autoria.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.Expose;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ public abstract @Data class BaseEntity {
 
     @Id
     @JsonProperty("value")
+    @Expose
     //@GeneratedValue (strategy = GenerationType.AUTO)
     private int id;
 
