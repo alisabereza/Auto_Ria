@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Store</title>
+    <title>AutoRia</title>
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet"/>
 </head>
 <body>
