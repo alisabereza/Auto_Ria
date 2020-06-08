@@ -23,7 +23,7 @@ class Request extends BaseEntity {
 
 
 
-    @NotEmpty
+    //@NotEmpty
     @ManyToOne(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE

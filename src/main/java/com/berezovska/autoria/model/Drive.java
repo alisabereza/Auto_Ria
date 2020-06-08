@@ -20,7 +20,7 @@ class Drive extends BaseEntity {
     private String name;
 
     @OneToMany(mappedBy = "drive", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<CategoryDriveLink> categoryDriveLinks;
+    private transient Set<CategoryDriveLink> categoryDriveLinks;
 
     @Override
     public boolean equals(Object o) {

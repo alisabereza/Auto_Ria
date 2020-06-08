@@ -19,7 +19,7 @@ class Gearbox extends BaseEntity {
     private String name;
 
     @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<CategoryGearboxLink> categoryGearboxLinks;
+    private transient Set<CategoryGearboxLink> categoryGearboxLinks;
 
     @Override
     public boolean equals(Object o) {

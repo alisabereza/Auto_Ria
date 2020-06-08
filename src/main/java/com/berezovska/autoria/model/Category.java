@@ -4,6 +4,7 @@ import com.berezovska.autoria.model.linking.CategoryBodyLink;
 import com.berezovska.autoria.model.linking.CategoryBrandModelLink;
 import com.berezovska.autoria.model.linking.CategoryDriveLink;
 import com.berezovska.autoria.model.linking.CategoryGearboxLink;
+import com.google.gson.annotations.Expose;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -21,19 +22,20 @@ public @Data
 class Category extends BaseEntity {
 
     @Column(name = "name")
+    @Expose
     private String name;
 
     @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<CategoryBodyLink> categoryBodyLinks;
+    private transient Set<CategoryBodyLink> categoryBodyLinks;
 
     @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<CategoryDriveLink> categoryDriveLinks;
+    private transient Set<CategoryDriveLink> categoryDriveLinks;
 
     @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<CategoryGearboxLink> categoryGearboxLinks;
+    private transient Set<CategoryGearboxLink> categoryGearboxLinks;
 
     @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<CategoryBrandModelLink> categoryBrandModelLinks;
+    private transient Set<CategoryBrandModelLink> categoryBrandModelLinks;
 
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
@@ -43,7 +45,7 @@ class Category extends BaseEntity {
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "drive_id")
     )
-    private Set<Drive> drives;
+    private transient Set<Drive> drives;
 
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
@@ -53,7 +55,7 @@ class Category extends BaseEntity {
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "gearbox_id")
     )
-    private Set<Gearbox> gearboxes;
+    private transient Set<Gearbox> gearboxes;
 
     @Override
     public boolean equals(Object o) {

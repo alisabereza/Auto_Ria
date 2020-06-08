@@ -20,7 +20,7 @@ class City extends BaseEntity {
     private String name;
 
     @OneToMany(mappedBy = "city", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<RegionCityLink> regionCityLinks;
+    private transient Set<RegionCityLink> regionCityLinks;
 
     @Override
     public boolean equals(Object o) {

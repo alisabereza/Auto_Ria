@@ -23,8 +23,8 @@ class Brand extends BaseEntity implements Serializable {
     @Expose
     private String name;
 
-    @OneToMany(mappedBy = "brand", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<CategoryBrandModelLink> categoryBrandModelLinks;
+   @OneToMany(mappedBy = "brand", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+   private transient Set<CategoryBrandModelLink> categoryBrandModelLinks;
 
     @Override
     public boolean equals(Object o) {

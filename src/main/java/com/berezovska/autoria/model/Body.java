@@ -19,7 +19,7 @@ class Body extends BaseEntity {
     private String name;
 
     @OneToMany(mappedBy = "body", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<CategoryBodyLink> categoryBodyLinks;
+    private transient Set<CategoryBodyLink> categoryBodyLinks;
 
     @Override
     public boolean equals(Object o) {

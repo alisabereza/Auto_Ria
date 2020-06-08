@@ -20,8 +20,8 @@ class Model extends BaseEntity {
     @Expose
     private String name;
 
-    @OneToMany(mappedBy = "model", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<CategoryBrandModelLink> categoryBrandModelLinks;
+   @OneToMany(mappedBy = "model", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+   private transient Set<CategoryBrandModelLink> categoryBrandModelLinks;
 
     public Model (int id, String name) {
         this.setId(id);

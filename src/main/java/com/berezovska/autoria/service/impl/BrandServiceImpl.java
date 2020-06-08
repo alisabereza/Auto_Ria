@@ -1,7 +1,6 @@
 package com.berezovska.autoria.service.impl;
 
 import com.berezovska.autoria.model.Brand;
-import com.berezovska.autoria.model.BrandEntity;
 import com.berezovska.autoria.repository.BrandRepository;
 import com.berezovska.autoria.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
