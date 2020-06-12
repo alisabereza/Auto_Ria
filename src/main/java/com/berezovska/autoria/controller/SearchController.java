@@ -4,10 +4,7 @@ import com.berezovska.autoria.controller.exception.EntityAlreadyExistsException;
 import com.berezovska.autoria.controller.exception.ErrorMessage;
 import com.berezovska.autoria.model.Brand;
 import com.berezovska.autoria.model.Request;
-import com.berezovska.autoria.service.BrandService;
-import com.berezovska.autoria.service.CategoryService;
-import com.berezovska.autoria.service.ModelService;
-import com.berezovska.autoria.service.RequestService;
+import com.berezovska.autoria.service.*;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +28,8 @@ public class SearchController {
 
     @Autowired
     private ModelService modelService;
+    @Autowired
+    private BodyService bodyService;
 
     @Autowired
     private RequestService requestService;
@@ -50,6 +49,7 @@ public class SearchController {
             System.out.println("Request Category: " + request.getCategory().getName());
             System.out.println("Request Brand: " + request.getBrand().getName());
             System.out.println("Request Model: " + request.getModel().getName());
+            request.setBody(bodyService.getById(4));
             requestService.save(request);
             model.addAttribute("model", request.getModel());
             return "";
@@ -79,6 +79,14 @@ public class SearchController {
     public String loadModelsByCategoryAndBrand(@PathVariable("categoryId") int categoryId, @PathVariable("brandId") int brandId) {
         Gson gson = new Gson();
         return gson.toJson(modelService.findByCategoryAndBrand(categoryId, brandId));
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "process/{categoryId}/{brandId}/{modelId}", method = RequestMethod.GET)
+    public String processRequest(@PathVariable("categoryId") int categoryId, @PathVariable("brandId") int brandId,  @PathVariable("modelId") int modelId) {
+        System.out.println("I am in controller: " +categoryService.getById(categoryId).getName() + ", " + brandService.getById(brandId).getName()+  ", " + modelService.getById(brandId).getName());
+        Gson gson = new Gson();
+        return "Success";
     }
 
     @ModelAttribute("requestForm")

@@ -8,6 +8,6 @@
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet"/></head>
 <body>
 <c:import url="${contextPath}/WEB-INF/view/navibar.jsp"/>
-<h3>Oops... something going wrong! ${error}</h3>
+<h3>Error message:  ${error}</h3>
 </body>
 </html>

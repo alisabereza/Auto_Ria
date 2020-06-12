@@ -3,6 +3,7 @@ package com.berezovska.autoria.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -23,7 +24,7 @@ class Request extends BaseEntity {
 
 
 
-    //@NotEmpty
+    @NotEmpty
     @ManyToOne(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
@@ -47,7 +48,7 @@ class Request extends BaseEntity {
     @JoinColumn(name = "model_id", nullable = false)
     private Model model;
 
-
+    @Nullable
     @ManyToOne(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
@@ -55,7 +56,7 @@ class Request extends BaseEntity {
     @JoinColumn(name = "region_id", nullable = false)
     private Region region;
 
-
+    @Nullable
     @ManyToOne(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
@@ -63,7 +64,7 @@ class Request extends BaseEntity {
     @JoinColumn(name = "city_id", nullable = false)
     private City city;
 
-
+    @Nullable
     @ManyToOne(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
@@ -71,7 +72,7 @@ class Request extends BaseEntity {
     @JoinColumn(name = "drive_id", nullable = false)
     private Drive drive;
 
-
+    @Nullable
     @ManyToOne(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
@@ -79,7 +80,7 @@ class Request extends BaseEntity {
     @JoinColumn(name = "fuel_id", nullable = false)
     private Fuel fuel;
 
-
+    @Nullable
     @ManyToOne(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
@@ -87,17 +88,17 @@ class Request extends BaseEntity {
     @JoinColumn(name = "gearbox_id", nullable = false)
     private Gearbox gearbox;
 
-
+    @Nullable
     @ManyToOne(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
     @JoinColumn(name = "colour_id", nullable = false)
     private Colour colour;
-
+    @Nullable
     @Column(name = "price_min")
     private Double priceMin;
-
+    @Nullable
     @Column(name = "price_max")
     private Double priceMax;
 

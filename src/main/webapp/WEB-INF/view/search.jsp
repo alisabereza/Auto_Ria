@@ -72,11 +72,15 @@
     <td>Category</td>
     <td>
     <spring:bind path="category">
-         <select id="comboboxCategory" style="width:200px">
-            <c:forEach var="category" items="${categories}">
-                <option value="${category.id}">${category.name}</option>
-            </c:forEach>
-        </select>
+
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:select path="category" id="comboboxCategory" class="form-control input-sm" autofocus="true">>
+                <form:option value="${category.id}">${category.name}</form:option>
+                <form:options items="${categories}" />
+            </form:select>
+            <form:errors path="category"></form:errors>
+        </div>
+
     </spring:bind>
     </td>
     </tr>
@@ -84,10 +88,15 @@
     <td>Brand</td>
     <td>
     <spring:bind path="brand">
-        <select id="comboboxBrand" style="width:200px"></select>
-        <c:forEach var="brand" items="${brands}">
-            <option value="${brand.id}">${brand.name}</option>
-        </c:forEach>
+
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:select path="brand" id="comboboxBrand" class="form-control input-sm" autofocus="true">>
+                <form:option value="${brand.id}">${brand.name}</form:option>
+                <form:options items="${brands}" />
+            </form:select>
+            <form:errors path="brand"></form:errors>
+        </div>
+
     </spring:bind>
     </td>
     </tr>
@@ -95,10 +104,14 @@
     <td>Model</td>
     <td>
     <spring:bind path="model">
-        <select id="comboboxModel" style="width:200px"></select>
-        <c:forEach var="model" items="${models}">
-            <option value="${model.id}">${model.name}</option>
-        </c:forEach>
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:select path="model" id="comboboxModel" class="form-control input-sm" autofocus="true">>
+                <form:option value="${model.id}">${model.name}</form:option>
+                <form:options items="${models}" />
+            </form:select>
+            <form:errors path="model"></form:errors>
+        </div>
+
     </spring:bind>
     </td>
     </tr>
