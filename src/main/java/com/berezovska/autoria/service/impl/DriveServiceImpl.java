@@ -42,4 +42,10 @@ driveRepository.saveAll(entities);
     public Drive update(Drive entity) {
         return null;
     }
+
+    @Override
+    public List<Drive> findByCategory(int id) {
+        List <Drive> drives = driveRepository.findByCategory(id);
+        return drives;
+    }
 }

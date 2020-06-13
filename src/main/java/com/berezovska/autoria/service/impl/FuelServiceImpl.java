@@ -15,7 +15,7 @@ public class FuelServiceImpl implements FuelService {
     private FuelRepository fuelRepository;
     @Override
     public List<Fuel> getAll() {
-        return null;
+        return fuelRepository.findAll();
     }
 
     @Override

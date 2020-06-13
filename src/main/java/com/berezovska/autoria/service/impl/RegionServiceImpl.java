@@ -16,7 +16,7 @@ public class RegionServiceImpl implements RegionService {
     private RegionRepository regionRepository;
     @Override
     public List<Region> getAll() {
-        return null;
+        return regionRepository.findAll();
     }
 
     @Override

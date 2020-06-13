@@ -15,7 +15,6 @@ public abstract @Data class BaseEntity {
     @Id
     @JsonProperty("value")
     @Expose
-    //@GeneratedValue (strategy = GenerationType.AUTO)
     private int id;
 
    @Override

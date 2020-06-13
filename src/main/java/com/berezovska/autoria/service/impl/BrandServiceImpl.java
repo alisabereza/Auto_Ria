@@ -48,8 +48,6 @@ brandRepository.saveAll(entities);
     @Override
     public List<Brand> findByCategory(int id) {
         List <Brand> brands = brandRepository.findByCategory(id);
-        System.out.println("Brands: ");
-        brands.forEach(System.out::println);
         return brands;
     }
 

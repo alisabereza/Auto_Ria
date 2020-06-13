@@ -59,5 +59,10 @@ class BodyServiceImpl implements BodyService {
         bodyRepository.saveAll(bodies);
 
     }
+    @Override
+    public List<Body> findByCategory(int id) {
+        List <Body> bodies = bodyRepository.findByCategory(id);
+        return bodies;
+    }
 
 }

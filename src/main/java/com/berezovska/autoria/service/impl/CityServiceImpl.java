@@ -47,4 +47,10 @@ cityRepository.saveAll(entities);
     public City update(City entity) {
         return null;
     }
+
+    @Override
+    public List<City> findByRegion(int id) {
+        List <City> cities = cityRepository.findByRegion(id);
+        return cities;
+    }
 }

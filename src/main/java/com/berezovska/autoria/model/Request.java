@@ -53,7 +53,7 @@ class Request extends BaseEntity {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
-    @JoinColumn(name = "region_id", nullable = false)
+    @JoinColumn(name = "region_id")
     private Region region;
 
     @Nullable
@@ -61,7 +61,7 @@ class Request extends BaseEntity {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
-    @JoinColumn(name = "city_id", nullable = false)
+    @JoinColumn(name = "city_id")
     private City city;
 
     @Nullable
@@ -69,7 +69,7 @@ class Request extends BaseEntity {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
-    @JoinColumn(name = "drive_id", nullable = false)
+    @JoinColumn(name = "drive_id")
     private Drive drive;
 
     @Nullable
@@ -77,7 +77,7 @@ class Request extends BaseEntity {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
-    @JoinColumn(name = "fuel_id", nullable = false)
+    @JoinColumn(name = "fuel_id")
     private Fuel fuel;
 
     @Nullable
@@ -85,7 +85,7 @@ class Request extends BaseEntity {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
-    @JoinColumn(name = "gearbox_id", nullable = false)
+    @JoinColumn(name = "gearbox_id")
     private Gearbox gearbox;
 
     @Nullable
@@ -93,7 +93,7 @@ class Request extends BaseEntity {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
-    @JoinColumn(name = "colour_id", nullable = false)
+    @JoinColumn(name = "colour_id")
     private Colour colour;
     @Nullable
     @Column(name = "price_min")

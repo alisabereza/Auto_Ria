@@ -15,7 +15,7 @@ public class GearboxServiceImpl implements GearboxService {
     private GearboxRepository gearboxRepository;
     @Override
     public List<Gearbox> getAll() {
-        return null;
+        return gearboxRepository.findAll();
     }
 
     @Override
@@ -41,5 +41,11 @@ public class GearboxServiceImpl implements GearboxService {
     @Override
     public Gearbox update(Gearbox entity) {
         return null;
+    }
+
+    @Override
+    public List<Gearbox> findByCategory(int id) {
+        List <Gearbox> drives = gearboxRepository.findByCategory(id);
+        return drives;
     }
 }

@@ -24,12 +24,14 @@ class ColourServiceImpl implements ColourService {
     @Override
     public List<Colour> getAll() {
         LOG.debug("get All Colours: ");
-        return colourRepository.findAll();
+        List<Colour> colours = colourRepository.findAll();
+
+        return colours;
     }
 
     @Override
     public Colour getById(int id) {
-        LOG.debug("getUser: id=" + id);
+        LOG.debug("getColour: id=" + id);
         return colourRepository.findById(id)
                 .orElseThrow(() -> new EntityNotExistsException(String.format("Colour with id = %s not found", id)));
     }

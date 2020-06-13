@@ -1,9 +1,7 @@
 package com.berezovska.autoria.controller;
 
-import com.berezovska.autoria.controller.exception.EntityAlreadyExistsException;
 import com.berezovska.autoria.controller.exception.ErrorMessage;
-import com.berezovska.autoria.model.Brand;
-import com.berezovska.autoria.model.Request;
+import com.berezovska.autoria.model.*;
 import com.berezovska.autoria.service.*;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +28,20 @@ public class SearchController {
     private ModelService modelService;
     @Autowired
     private BodyService bodyService;
+    @Autowired
+    private DriveService driveService;
+    @Autowired
+    private FuelService fuelService;
+    @Autowired
+    private GearboxService gearboxService;
+    @Autowired
+    private RegionService regionService;
+    @Autowired
+    private CityService cityService;
+    @Autowired
+    private ColourService colourService;
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private RequestService requestService;
@@ -37,7 +49,12 @@ public class SearchController {
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap modelMap) {
         modelMap.put("categories", categoryService.getAll());
+        modelMap.put("all_fuel", fuelService.getAll());
+        modelMap.put("colours", colourService.getAll());
+        modelMap.put("regions", regionService.getAll());
+        modelMap.put("gearboxes", gearboxService.getAll());
         return "search";
+
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -49,11 +66,24 @@ public class SearchController {
             System.out.println("Request Category: " + request.getCategory().getName());
             System.out.println("Request Brand: " + request.getBrand().getName());
             System.out.println("Request Model: " + request.getModel().getName());
-            request.setBody(bodyService.getById(4));
+            System.out.println("Request Body: " + request.getBody().getName());
+            System.out.println("Request Drive: " + request.getDrive().getName());
+            System.out.println("Request Fuel: " + request.getFuel().getName());
+            System.out.println("Request Gearbox: " + request.getGearbox().getName());
+            System.out.println("Request Colour: " + request.getColour().getName());
+            System.out.println("Request Region: " + request.getRegion().getName());
+            System.out.println("Request City: " + request.getCity().getName());
+            //System.out.println("Request User: " + request.getUser().getEmail());
+
             requestService.save(request);
             model.addAttribute("model", request.getModel());
             return "";
-        } catch (EntityAlreadyExistsException e) {
+        } catch (Exception e) {
+
+            model.addAttribute("errors", List.of(new ErrorMessage("", e.getMessage())));
+            return "";
+        }
+        catch (Error e) {
 
             model.addAttribute("errors", List.of(new ErrorMessage("", e.getMessage())));
             return "";
@@ -82,11 +112,58 @@ public class SearchController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "process/{categoryId}/{brandId}/{modelId}", method = RequestMethod.GET)
-    public String processRequest(@PathVariable("categoryId") int categoryId, @PathVariable("brandId") int brandId,  @PathVariable("modelId") int modelId) {
-        System.out.println("I am in controller: " +categoryService.getById(categoryId).getName() + ", " + brandService.getById(brandId).getName()+  ", " + modelService.getById(brandId).getName());
+    @RequestMapping(value = "loadBodiesByCategory/{category_id}", method = RequestMethod.GET)
+    public String loadBodiesByCategory(@PathVariable("category_id") int category_id){
         Gson gson = new Gson();
-        return "Success";
+        List<Body> bodies = bodyService.findByCategory(category_id);
+
+        try {
+            return gson.toJson(bodies);
+        } catch (Throwable e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    @ResponseBody
+    @RequestMapping(value = "loadDrivesByCategory/{category_id}", method = RequestMethod.GET)
+    public String loadDrivesByCategory(@PathVariable("category_id") int category_id){
+        Gson gson = new Gson();
+        List<Drive> drives = driveService.findByCategory(category_id);
+
+        try {
+            return gson.toJson(drives);
+        } catch (Throwable e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "loadGearboxesByCategory/{category_id}", method = RequestMethod.GET)
+    public String loadGeaerboxesByCategory(@PathVariable("category_id") int category_id){
+        Gson gson = new Gson();
+        List<Gearbox> gearboxes = gearboxService.findByCategory(category_id);
+
+        try {
+            return gson.toJson(gearboxes);
+        } catch (Throwable e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "loadCitiesByRegion/{region_id}", method = RequestMethod.GET)
+    public String loadCitiesByRegion(@PathVariable("region_id") int region_id){
+        Gson gson = new Gson();
+        List<City> cities = cityService.findByRegion(region_id);
+
+        try {
+            return gson.toJson(cities);
+        } catch (Throwable e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     @ModelAttribute("requestForm")
